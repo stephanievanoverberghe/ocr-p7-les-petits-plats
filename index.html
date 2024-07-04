@@ -1,71 +1,73 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@200..800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Anton&display=swap"
-      rel="stylesheet"
-    />
-    <script
-      src="https://kit.fontawesome.com/33a775bcdb.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="src/output.css" />
-    <title>Les petits plats</title>
-  </head>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@200..800&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Anton&display=swap"
+            rel="stylesheet"
+        />
+        <script
+            src="https://kit.fontawesome.com/33a775bcdb.js"
+            crossorigin="anonymous"
+        ></script>
+        <link rel="stylesheet" href="src/output.css" />
+        <title>Les petits plats</title>
+    </head>
 
-  <body class="bg-color-site-200 font-manrope">
-    <header class="h-screen">
-      <img
-        src="src/assets/img/background-header.png"
-        class="absolute h-full w-full object-cover"
-        alt="Image d'arrière plan"
-      />
-      <img
-        src="src/assets/logo/logo.png"
-        class="relative left-[69px] top-[51px]"
-        alt="Logo du site web Les Petits Plats"
-      />
-      <div class="relative left-0 top-[300px] flex flex-col items-center">
-        <h1
-          class="text-color-site-50 font-anton text-center text-[44px] uppercase"
+    <body class="bg-color-site-200 font-manrope">
+        <header
+            class="relative flex h-screen flex-col items-center justify-center"
         >
-          Chercher parmi plus de 1500 recettes <br />
-          du quotidien, simples et délicieuse
-        </h1>
-        <div class="relative mt-7 flex">
-          <input
-            type="text"
-            class="font-manrope h-[72px] w-[954px] rounded-xl px-4 focus:outline-none"
-            placeholder="Recherchez une recette, un ingrédient ..."
-            id="search"
-          />
-          <button
-            class="bg-color-site-100 hover:bg-color-site-50 hover:text-color-site-100 absolute right-2.5 top-2.5 h-[51px] w-[51px] rounded-md text-white transition-colors duration-300 ease-in-out"
-            id="search-button"
-          >
-            <i class="fas fa-lg fa-magnifying-glass"></i>
-          </button>
-          <button
-            class="text-color-site-300 absolute right-20 top-4 rounded-lg px-2 py-2"
-            id="clear-button"
-          >
-            <i class="fas fa-times"></i>
-          </button>
-        </div>
-      </div>
-    </header>
-    <main class="mx-auto px-32 py-6"></main>
-  </body>
+            <img
+                src="src/assets/img/background-header.png"
+                class="absolute h-full w-full object-cover"
+                alt="Image d'arrière plan"
+            />
+            <img
+                src="src/assets/logo/logo.png"
+                class="absolute left-[69px] top-[51px]"
+                alt="Logo du site web Les Petits Plats"
+            />
+            <div class="relative">
+                <h1
+                    class="text-center font-anton text-[44px] uppercase text-color-site-50"
+                >
+                    Chercher parmi plus de 1500 recettes <br />
+                    du quotidien, simples et délicieuse
+                </h1>
+                <div class="relative mt-7 flex">
+                    <input
+                        type="text"
+                        class="h-[72px] w-[954px] rounded-xl px-4 font-manrope focus:outline-none"
+                        placeholder="Recherchez une recette, un ingrédient ..."
+                        id="search"
+                    />
+                    <button
+                        class="absolute right-2.5 top-2.5 h-[51px] w-[51px] rounded-md bg-color-site-100 text-white transition-colors duration-300 ease-in-out hover:bg-color-site-50 hover:text-color-site-100"
+                        id="search-button"
+                    >
+                        <i class="fas fa-lg fa-magnifying-glass"></i>
+                    </button>
+                    <button
+                        class="absolute right-20 top-4 rounded-lg p-2 text-color-site-300"
+                        id="clear-button"
+                    >
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+        <main class="mx-auto px-32 py-6"></main>
+    </body>
 
-  <script type="module" src="src/js/app.js"></script>
+    <script type="module" src="src/js/app.js"></script>
 </html>
