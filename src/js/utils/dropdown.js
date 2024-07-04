@@ -1,28 +1,34 @@
-const ingredientButton = document.getElementById('ingredient-button');
-const dropdownPanel = document.getElementById('dropdown-panel');
-const arrowIcon = document.getElementById('arrow-icon');
-const searchInput = document.getElementById('search-input');
-const ingredientsSelect = document.getElementById('ingredients-select');
+const togglePanel = (panel, isHidden, button, arrowIcon) => {
+    panel.classList.toggle('hidden');
+    panel.classList.toggle('dropdown-open');
+    panel.classList.toggle('scale-y-0', !isHidden);
+    panel.classList.toggle('scale-y-100', isHidden);
+    button.classList.toggle('rounded-xl', !isHidden);
+    button.classList.toggle('rounded-t-xl', isHidden);
+    arrowIcon.classList.toggle('rotate-180');
+};
 
-ingredientButton.addEventListener('click', () => {
-    const isHidden = dropdownPanel.classList.contains('dropdown-open');
+const closeOtherDropdowns = (currentDropdown) => {
+    document.querySelectorAll('.dropdown-container').forEach(otherDropdown => {
+        if (otherDropdown !== currentDropdown) {
+            const otherPanel = otherDropdown.querySelector('.dropdown-panel');
+            const otherButton = otherDropdown.querySelector('.dropdown-button');
+            const otherArrowIcon = otherDropdown.querySelector('.arrow-icon');
 
-    if (isHidden) {
-        dropdownPanel.classList.remove('dropdown-open');
-        ingredientButton.classList.remove('rounded-t-xl');
-        ingredientButton.classList.add('rounded-xl');
-        arrowIcon.classList.remove('rotate-180');
-    } else {
-        dropdownPanel.classList.add('dropdown-open');
-        ingredientButton.classList.add('rounded-t-xl');
-        ingredientButton.classList.remove('rounded-xl');
-        arrowIcon.classList.add('rotate-180');
-    }
-});
+            otherPanel.classList.add('hidden');
+            otherPanel.classList.remove('dropdown-open');
+            otherPanel.classList.add('scale-y-0');
+            otherPanel.classList.remove('scale-y-100');
+            otherButton.classList.add('rounded-xl');
+            otherButton.classList.remove('rounded-t-xl');
+            otherArrowIcon.classList.remove('rotate-180');
+        }
+    });
+};
 
-searchInput.addEventListener('input', () => {
+const filterOptions = (searchInput, select, clearButton) => {
     const filter = searchInput.value.toLowerCase();
-    const options = ingredientsSelect.options;
+    const options = select.options;
     for (let i = 0; i < options.length; i++) {
         const option = options[i];
         if (option.text.toLowerCase().includes(filter)) {
@@ -31,4 +37,33 @@ searchInput.addEventListener('input', () => {
             option.style.display = "none";
         }
     }
-});
+    clearButton.classList.toggle('hidden', searchInput.value.length === 0);
+};
+
+const setupDropdown = (dropdown) => {
+    const button = dropdown.querySelector('.dropdown-button');
+    const panel = dropdown.querySelector('.dropdown-panel');
+    const arrowIcon = dropdown.querySelector('.arrow-icon');
+    const searchInput = dropdown.querySelector('.search-input');
+    const clearButton = dropdown.querySelector('.clear-search-input');
+    const select = dropdown.querySelector('.dropdown-select');
+
+    button.addEventListener('click', () => {
+        const isHidden = panel.classList.contains('hidden');
+
+        closeOtherDropdowns(dropdown);
+
+        togglePanel(panel, isHidden, button, arrowIcon);
+    });
+
+    searchInput.addEventListener('input', () => {
+        filterOptions(searchInput, select, clearButton);
+    });
+
+    clearButton.addEventListener('click', () => {
+        searchInput.value = '';
+        filterOptions(searchInput, select, clearButton);
+    });
+};
+
+document.querySelectorAll('.dropdown-container').forEach(setupDropdown);

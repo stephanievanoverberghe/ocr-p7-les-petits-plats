@@ -67,63 +67,204 @@
             </div>
         </header>
         <main class="mx-auto h-[500px] px-32 py-6">
-            <div class="relative inline-block w-56 text-left">
-                <div class="flex flex-col justify-between">
-                    <button
-                        type="button"
-                        class="mr-16 inline-flex w-full cursor-pointer items-center justify-between rounded-xl bg-white p-4"
-                        id="ingredient-button"
+            <div class="flex">
+                <div class="grid grid-cols-3 gap-16">
+                    <!-- Ingrédients Dropdown -->
+                    <div
+                        class="dropdown-container relative inline-block w-56 text-left"
                     >
-                        Ingrédients
-                        <i
-                            class="fa-solid fa-chevron-down transition-transform duration-300"
-                            id="arrow-icon"
-                        ></i>
-                    </button>
-                </div>
-
-                <!-- Dropdown panel, show/hide based on dropdown state. -->
-                <div
-                    id="dropdown-panel"
-                    class="dropdown absolute left-0 mt-0 w-full rounded-b-xl border-t-0 border-gray-300 bg-white shadow-lg"
-                >
-                    <div class="py-2">
-                        <div class="relative mb-2 flex items-center px-4">
-                            <input
-                                type="text"
-                                class="border-color-site-400 w-full rounded-sm border px-3 py-2"
-                                placeholder="Recherchez"
-                                id="search-input"
-                            />
-                            <div class="absolute right-7 flex items-center">
+                        <div class="flex flex-col justify-between">
+                            <button
+                                type="button"
+                                class="dropdown-button mr-16 inline-flex w-full cursor-pointer items-center justify-between rounded-xl bg-white p-4"
+                            >
+                                Ingrédients
                                 <i
-                                    class="fa-solid fa-magnifying-glass text-color-site-300"
+                                    class="fa-solid fa-chevron-down arrow-icon transition-transform duration-300"
                                 ></i>
+                            </button>
+                        </div>
+                        <div
+                            class="dropdown dropdown-panel absolute left-0 mt-0 hidden w-full origin-top transform rounded-b-xl border-t-0 border-gray-300 bg-white shadow-lg transition-all duration-300 ease-in-out"
+                        >
+                            <div class="py-2">
+                                <div
+                                    class="relative mb-2 flex items-center px-4"
+                                >
+                                    <input
+                                        type="text"
+                                        class="border-color-site-400 search-input w-full rounded-sm border px-3 py-2"
+                                        placeholder="Recherchez"
+                                    />
+                                    <button
+                                        class="clear-search-input absolute right-11 hidden p-2 text-color-site-300"
+                                    >
+                                        <i class="fas fa-times fa-xs"></i>
+                                    </button>
+                                    <div
+                                        class="absolute right-7 flex items-center"
+                                    >
+                                        <i
+                                            class="fa-solid fa-magnifying-glass text-color-site-300"
+                                        ></i>
+                                    </div>
+                                </div>
+                                <select
+                                    multiple
+                                    class="no-scrollbar dropdown-select h-40 w-full border-0 focus:outline-none focus:ring-0"
+                                >
+                                    <option value="citron" class="py-2">
+                                        Jus de citron
+                                    </option>
+                                    <option value="glacons" class="py-2">
+                                        Glaçons
+                                    </option>
+                                    <option value="tomate" class="py-2">
+                                        Tomate
+                                    </option>
+                                    <option value="poulet" class="py-2">
+                                        Poulet
+                                    </option>
+                                    <option value="poivron" class="py-2">
+                                        Poivron rouge
+                                    </option>
+                                    <option value="thon" class="py-2">
+                                        Thon en miettes
+                                    </option>
+                                    <option value="vinaigrette" class="py-2">
+                                        Vinaigrette
+                                    </option>
+                                </select>
                             </div>
                         </div>
-                        <select
-                            multiple
-                            class="no-scrollbar h-40 w-full border-0 focus:outline-none focus:ring-0"
-                            id="ingredients-select"
+                    </div>
+
+                    <!-- Appareils Dropdown -->
+                    <div
+                        class="dropdown-container relative inline-block w-56 text-left"
+                    >
+                        <div class="flex flex-col justify-between">
+                            <button
+                                type="button"
+                                class="dropdown-button mr-16 inline-flex w-full cursor-pointer items-center justify-between rounded-xl bg-white p-4"
+                            >
+                                Appareils
+                                <i
+                                    class="fa-solid fa-chevron-down arrow-icon transition-transform duration-300"
+                                ></i>
+                            </button>
+                        </div>
+                        <div
+                            class="dropdown dropdown-panel absolute left-0 mt-0 hidden w-full origin-top transform rounded-b-xl border-t-0 border-gray-300 bg-white shadow-lg transition-all duration-300 ease-in-out"
                         >
-                            <option value="citron" class="py-2">
-                                Jus de citron
-                            </option>
-                            <option value="glacons" class="py-2">
-                                Glaçons
-                            </option>
-                            <option value="tomate" class="py-2">Tomate</option>
-                            <option value="poulet" class="py-2">Poulet</option>
-                            <option value="poivron" class="py-2">
-                                Poivron rouge
-                            </option>
-                            <option value="thon" class="py-2">
-                                Thon en miettes
-                            </option>
-                            <option value="vinaigrette" class="py-2">
-                                Vinaigrette
-                            </option>
-                        </select>
+                            <div class="py-2">
+                                <div
+                                    class="relative mb-2 flex items-center px-4"
+                                >
+                                    <input
+                                        type="text"
+                                        class="border-color-site-400 search-input w-full rounded-sm border px-3 py-2"
+                                        placeholder="Recherchez"
+                                    />
+                                    <button
+                                        class="clear-search-input absolute right-11 hidden p-2 text-color-site-300"
+                                    >
+                                        <i class="fas fa-times fa-xs"></i>
+                                    </button>
+                                    <div
+                                        class="absolute right-7 flex items-center"
+                                    >
+                                        <i
+                                            class="fa-solid fa-magnifying-glass text-color-site-300"
+                                        ></i>
+                                    </div>
+                                </div>
+                                <select
+                                    multiple
+                                    class="no-scrollbar dropdown-select h-40 w-full border-0 focus:outline-none focus:ring-0"
+                                >
+                                    <option value="blender" class="py-2">
+                                        Blender
+                                    </option>
+                                    <option value="saladier" class="py-2">
+                                        Saladier
+                                    </option>
+                                    <option value="cocotte" class="py-2">
+                                        Cocotte
+                                    </option>
+                                    <option value="cuiseur" class="py-2">
+                                        Cuisseur de riz
+                                    </option>
+                                    <option value="four" class="py-2">
+                                        Four
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ustensiles Dropdown -->
+                    <div
+                        class="dropdown-container relative inline-block w-56 text-left"
+                    >
+                        <div class="flex flex-col justify-between">
+                            <button
+                                type="button"
+                                class="dropdown-button mr-16 inline-flex w-full cursor-pointer items-center justify-between rounded-xl bg-white p-4"
+                            >
+                                Ustensiles
+                                <i
+                                    class="fa-solid fa-chevron-down arrow-icon transition-transform duration-300"
+                                ></i>
+                            </button>
+                        </div>
+                        <div
+                            class="dropdown dropdown-panel absolute left-0 mt-0 hidden w-full origin-top transform rounded-b-xl border-t-0 border-gray-300 bg-white shadow-lg transition-all duration-300 ease-in-out"
+                        >
+                            <div class="py-2">
+                                <div
+                                    class="relative mb-2 flex items-center px-4"
+                                >
+                                    <input
+                                        type="text"
+                                        class="border-color-site-400 search-input w-full rounded-sm border px-3 py-2"
+                                        placeholder="Recherchez"
+                                    />
+                                    <button
+                                        class="clear-search-input absolute right-11 hidden p-2 text-color-site-300"
+                                    >
+                                        <i class="fas fa-times fa-xs"></i>
+                                    </button>
+                                    <div
+                                        class="absolute right-7 flex items-center"
+                                    >
+                                        <i
+                                            class="fa-solid fa-magnifying-glass text-color-site-300"
+                                        ></i>
+                                    </div>
+                                </div>
+                                <select
+                                    multiple
+                                    class="no-scrollbar dropdown-select h-40 w-full border-0 focus:outline-none focus:ring-0"
+                                >
+                                    <option value="cuillere" class="py-2">
+                                        Cuillère à Soupe
+                                    </option>
+                                    <option value="verres" class="py-2">
+                                        Verres
+                                    </option>
+                                    <option value="presse" class="py-2">
+                                        Presse citron
+                                    </option>
+                                    <option value="couteau" class="py-2">
+                                        Couteau
+                                    </option>
+                                    <option value="saladier" class="py-2">
+                                        Saladier
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

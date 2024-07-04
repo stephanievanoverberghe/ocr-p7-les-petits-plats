@@ -765,6 +765,10 @@ select {
   left: 69px;
 }
 
+.right-11 {
+  right: 2.75rem;
+}
+
 .right-2 {
   right: 0.5rem;
 }
@@ -830,6 +834,14 @@ select {
   display: inline-flex;
 }
 
+.grid {
+  display: grid;
+}
+
+.hidden {
+  display: none;
+}
+
 .h-40 {
   height: 10rem;
 }
@@ -870,8 +882,20 @@ select {
   width: 100%;
 }
 
+.origin-top {
+  transform-origin: top;
+}
+
+.transform {
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .cursor-pointer {
   cursor: pointer;
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .flex-col {
@@ -888,6 +912,10 @@ select {
 
 .justify-between {
   justify-content: space-between;
+}
+
+.gap-16 {
+  gap: 4rem;
 }
 
 .rounded-lg {
@@ -1036,6 +1064,12 @@ select {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
 .transition-colors {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -1077,8 +1111,7 @@ select {
 .dropdown {
   transition:
         max-height 0.3s ease,
-        opacity 0.3s ease,
-        transform 0.3s ease;
+        opacity 0.3s ease;
   max-height: 0;
   opacity: 0;
   overflow: hidden;
@@ -1091,7 +1124,7 @@ select {
 
 /* Options select */
 
-#ingredients-select option:hover {
+.dropdown-select option:hover {
   background-color: #ffd15b;
 }
 

@@ -20,8 +20,7 @@
 .dropdown {
     transition:
         max-height 0.3s ease,
-        opacity 0.3s ease,
-        transform 0.3s ease;
+        opacity 0.3s ease;
     max-height: 0;
     opacity: 0;
     overflow: hidden;
@@ -33,6 +32,6 @@
 }
 
 /* Options select */
-#ingredients-select option:hover {
+.dropdown-select option:hover {
     background-color: #ffd15b;
 }
