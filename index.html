@@ -23,7 +23,7 @@
         <title>Les petits plats</title>
     </head>
 
-    <body class="bg-color-site-200 font-manrope">
+    <body class="bg-color-site-200 font-manrope text-color-site-100">
         <header
             class="relative flex h-screen flex-col items-center justify-center"
         >
@@ -66,8 +66,72 @@
                 </div>
             </div>
         </header>
-        <main class="mx-auto px-32 py-6"></main>
+        <main class="mx-auto h-[500px] px-32 py-6">
+            <div class="relative inline-block w-56 text-left">
+                <div class="flex flex-col justify-between">
+                    <button
+                        type="button"
+                        class="mr-16 inline-flex w-full cursor-pointer items-center justify-between rounded-xl bg-white p-4"
+                        id="ingredient-button"
+                    >
+                        Ingrédients
+                        <i
+                            class="fa-solid fa-chevron-down transition-transform duration-300"
+                            id="arrow-icon"
+                        ></i>
+                    </button>
+                </div>
+
+                <!-- Dropdown panel, show/hide based on dropdown state. -->
+                <div
+                    id="dropdown-panel"
+                    class="dropdown absolute left-0 mt-0 w-full rounded-b-xl border-t-0 border-gray-300 bg-white shadow-lg"
+                >
+                    <div class="px-4 py-2">
+                        <div class="relative mb-2 flex items-center">
+                            <input
+                                type="text"
+                                class="border-color-site-400 w-full rounded-sm border px-3 py-2"
+                                placeholder="Recherchez"
+                                id="search-input"
+                            />
+                            <div
+                                class="absolute right-3 flex items-center pr-3"
+                            >
+                                <i
+                                    class="fa-solid fa-magnifying-glass text-color-site-300"
+                                ></i>
+                            </div>
+                        </div>
+                        <select
+                            multiple
+                            class="no-scrollbar h-40 w-full rounded-md border-0 px-0"
+                            id="ingredients-select"
+                        >
+                            <option value="citron" class="mb-3">
+                                Jus de citron
+                            </option>
+                            <option value="glacons" class="mb-3">
+                                Glaçons
+                            </option>
+                            <option value="tomate" class="mb-3">Tomate</option>
+                            <option value="poulet" class="mb-3">Poulet</option>
+                            <option value="poivron" class="mb-3">
+                                Poivron rouge
+                            </option>
+                            <option value="thon" class="mb-3">
+                                Thon en miettes
+                            </option>
+                            <option value="vinaigrette" class="mb-3">
+                                Vinaigrette
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </main>
     </body>
 
+    <script src="src/js/utils/dropdown.js"></script>
     <script type="module" src="src/js/app.js"></script>
 </html>
