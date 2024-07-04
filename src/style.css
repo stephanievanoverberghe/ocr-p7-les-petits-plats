@@ -31,3 +31,8 @@
     max-height: 500px;
     opacity: 1;
 }
+
+/* Options select */
+#ingredients-select option:hover {
+    background-color: #ffd15b;
+}
