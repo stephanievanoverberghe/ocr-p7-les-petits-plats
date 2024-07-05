@@ -13,6 +13,7 @@ class App {
                 this.recipes = recipesData.recipes.map(data => new Recipe(data));
                 this.updateRecipeCount(this.recipes.length);
                 this.displayRecipes(this.recipes);
+                this.populateSelects();
 
                 document.getElementById('search').addEventListener('input', (event) => this.filterRecipes(event.target.value));
                 document.getElementById('clear-button').addEventListener('click', () => {
@@ -38,7 +39,7 @@ class App {
                 <div class="flex flex-grow flex-col px-6 pb-16 pt-8">
                     <h2 class="mb-7 font-anton text-lg font-bold">${recipe.name}</h2>
                     <h3 class="mb-2 text-sm font-bold uppercase tracking-wide text-color-site-300">Recette</h3>
-                    <p class="mb-8 flex-grow text-gray-700 line-clamp-4">${recipe.description}</p>
+                    <p class="mb-8 flex-grow text-gray-700 line-clamp-4">${this.truncateDescription(recipe.description)}</p>
                     <h3 class="mb-4 text-sm font-bold uppercase tracking-wide text-color-site-300">Ingrédients</h3>
                     <div class="grid grid-cols-2 gap-y-5">
                         ${recipe.ingredients.map(ingredient => `
@@ -66,10 +67,46 @@ class App {
     updateRecipeCount(count) {
         const recipeCountElement = document.getElementById('recipe-count');
         if (count === 0) {
-            recipeCountElement.textContent = `${count} recette`;
+            recipeCountElement.textContent = `00 recette`;
         } else {
             recipeCountElement.textContent = `${count.toString().padStart(2, '0')} recettes`;
         }
+    }
+
+    truncateDescription(description, maxLines = 4) {
+        const lines = description.split('\n');
+        if (lines.length <= maxLines) {
+            return description;
+        }
+        return lines.slice(0, maxLines).join(' ') + '...';
+    }
+
+    populateSelects() {
+        const ingredients = new Set();
+        const appliances = new Set();
+        const ustensils = new Set();
+
+        this.recipes.forEach(recipe => {
+            recipe.ingredients.forEach(ingredient => ingredients.add(ingredient.ingredient));
+            appliances.add(recipe.appliance);
+            recipe.ustensils.forEach(ustensil => ustensils.add(ustensil));
+        });
+
+        this.populateSelect('#ingredients-select', ingredients);
+        this.populateSelect('#appliances-select', appliances);
+        this.populateSelect('#ustensils-select', ustensils);
+    }
+
+    populateSelect(selectId, items) {
+        const select = document.querySelector(selectId);
+        select.innerHTML = '';
+        items.forEach(item => {
+            const option = document.createElement('option');
+            option.value = item;
+            option.textContent = item;
+            option.classList.add('py-2', 'capitalize-first-letter');
+            select.appendChild(option);
+        });
     }
 }
 

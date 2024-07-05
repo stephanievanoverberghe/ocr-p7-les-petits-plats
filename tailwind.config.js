@@ -3,9 +3,9 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./src/**/*.{html, js}",
-    "./*.{html, js}",
-    "./pages/*.{html, js}"
+    "./src/**/*.html",
+    "./src/**/*.js",
+    "./*.{html, js}"
   ],
   theme: {
     // A l'extérieur, ça remplace les fonctionnalités se trouvant dans le thème tailwind

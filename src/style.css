@@ -18,6 +18,10 @@
   text-overflow: ellipsis;
 }
 
+.capitalize-first-letter::first-letter {
+  text-transform: capitalize;
+}
+
 /* Faire tourner l'icône */
 .rotate-180 {
   transform: rotate(180deg);
