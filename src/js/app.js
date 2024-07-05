@@ -11,6 +11,7 @@ class App {
             const recipesData = await this.api.get();
             if (recipesData) {
                 this.recipes = recipesData.recipes.map(data => new Recipe(data));
+                this.updateRecipeCount(this.recipes.length);
                 this.displayRecipes(this.recipes);
 
                 document.getElementById('search').addEventListener('input', (event) => this.filterRecipes(event.target.value));
@@ -58,7 +59,17 @@ class App {
             recipe.name.toLowerCase().includes(query.toLowerCase()) ||
             recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(query.toLowerCase()))
         );
+        this.updateRecipeCount(filteredRecipes.length);
         this.displayRecipes(filteredRecipes);
+    }
+
+    updateRecipeCount(count) {
+        const recipeCountElement = document.getElementById('recipe-count');
+        if (count === 0) {
+            recipeCountElement.textContent = `${count} recette`;
+        } else {
+            recipeCountElement.textContent = `${count.toString().padStart(2, '0')} recettes`;
+        }
     }
 }
 
