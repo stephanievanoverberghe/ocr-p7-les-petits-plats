@@ -14,6 +14,10 @@ class App {
                 this.displayRecipes(this.recipes);
 
                 document.getElementById('search').addEventListener('input', (event) => this.filterRecipes(event.target.value));
+                document.getElementById('clear-button').addEventListener('click', () => {
+                    document.getElementById('search').value = '';
+                    this.filterRecipes('');
+                });
             }
         } catch (error) {
             console.error('Error in main:', error);
