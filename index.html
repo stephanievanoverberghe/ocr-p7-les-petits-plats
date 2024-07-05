@@ -1,480 +1,422 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@200..800&display=swap"
-            rel="stylesheet"
-        />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Anton&display=swap"
-            rel="stylesheet"
-        />
-        <script
-            src="https://kit.fontawesome.com/33a775bcdb.js"
-            crossorigin="anonymous"
-        ></script>
-        <link rel="stylesheet" href="src/output.css" />
-        <title>Les petits plats</title>
-    </head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@200..800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/33a775bcdb.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="src/output.css" />
+    <title>Les petits plats</title>
+  </head>
 
-    <body class="bg-color-site-200 font-manrope text-color-site-100">
-        <header
-            class="relative flex h-screen flex-col items-center justify-center"
+  <body class="bg-color-site-200 font-manrope text-color-site-100">
+    <header class="relative flex h-screen flex-col items-center justify-center">
+      <img
+        src="src/assets/img/background-header.png"
+        class="absolute h-full w-full object-cover"
+        alt="Image d'arrière plan"
+      />
+      <img
+        src="src/assets/logo/logo.png"
+        class="absolute left-[69px] top-[51px] w-56 md:w-auto"
+        alt="Logo du site web Les Petits Plats"
+      />
+      <div class="relative">
+        <h1
+          class="text-center font-anton text-xl uppercase text-color-site-50 md:text-4xl lg:text-[44px]"
         >
-            <img
-                src="src/assets/img/background-header.png"
-                class="absolute h-full w-full object-cover"
-                alt="Image d'arrière plan"
-            />
-            <img
-                src="src/assets/logo/logo.png"
-                class="absolute left-[69px] top-[51px]"
-                alt="Logo du site web Les Petits Plats"
-            />
-            <div class="relative">
-                <h1
-                    class="text-center font-anton text-[44px] uppercase text-color-site-50"
-                >
-                    Chercher parmi plus de 1500 recettes <br />
-                    du quotidien, simples et délicieuse
-                </h1>
-                <div class="relative mt-7 flex">
-                    <input
-                        type="text"
-                        class="h-[72px] w-[954px] rounded-xl px-4 font-manrope focus:outline-none"
-                        placeholder="Recherchez une recette, un ingrédient ..."
-                        id="search"
-                    />
-                    <button
-                        class="absolute right-2.5 top-2.5 h-[51px] w-[51px] rounded-md bg-color-site-100 text-white transition-colors duration-300 ease-in-out hover:bg-color-site-50 hover:text-color-site-100"
-                        id="search-button"
-                    >
-                        <i class="fas fa-lg fa-magnifying-glass"></i>
-                    </button>
-                    <button
-                        class="absolute right-20 top-4 rounded-lg p-2 text-color-site-300"
-                        id="clear-button"
-                    >
-                        <i class="fas fa-times"></i>
-                    </button>
+          Chercher parmi plus de 1500 recettes <br />
+          du quotidien, simples et délicieuse
+        </h1>
+        <div class="relative mt-7 flex">
+          <input
+            type="text"
+            class="h-12 w-full rounded-xl px-4 font-manrope placeholder:text-xs focus:outline-none md:h-16 md:placeholder:text-base lg:h-[72px] lg:w-[954px]"
+            placeholder="Recherchez une recette, un ingrédient ..."
+            id="search"
+          />
+          <button
+            class="absolute right-2 top-2 h-8 w-8 rounded-md bg-color-site-100 text-white md:h-12 md:w-12 lg:right-2.5 lg:top-2.5 lg:h-[51px] lg:w-[51px] lg:transition-colors lg:duration-300 lg:ease-in-out lg:hover:bg-color-site-50 lg:hover:text-color-site-100"
+            id="search-button"
+          >
+            <i class="fas fa-sm md:fa-lg fa-magnifying-glass"></i>
+          </button>
+          <button
+            class="absolute right-10 top-1 rounded-lg p-2 text-color-site-300 md:right-16 md:top-3 lg:right-20 lg:top-4"
+            id="clear-button"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+    <main class="mx-auto px-2 py-6 lg:px-32">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+        <div class="grid gap-10 lg:grid-cols-3 xl:gap-16">
+          <!-- Ingredients dropdown -->
+          <div
+            class="dropdown-container relative inline-block w-full pb-2 text-left lg:max-w-56 lg:pb-0"
+          >
+            <div class="flex flex-col justify-between">
+              <button
+                type="button"
+                class="dropdown-button mr-16 inline-flex w-full cursor-pointer items-center justify-between rounded-xl bg-white p-4"
+              >
+                Ingrédients
+                <i
+                  class="fa-solid fa-chevron-down arrow-icon transition-transform duration-300"
+                ></i>
+              </button>
+            </div>
+            <div
+              class="dropdown dropdown-panel absolute left-0 z-50 mt-0 hidden w-full origin-top transform rounded-b-xl border-t-0 border-gray-300 bg-white shadow-lg transition-all duration-300 ease-in-out"
+            >
+              <div class="py-2">
+                <div class="relative mb-2 flex items-center px-4">
+                  <input
+                    type="text"
+                    class="search-input w-full rounded-sm border border-color-site-400 px-3 py-2"
+                    placeholder="Recherchez"
+                  />
+                  <button
+                    class="clear-search-input absolute right-11 hidden p-2 text-color-site-300"
+                  >
+                    <i class="fas fa-times fa-xs"></i>
+                  </button>
+                  <div class="absolute right-7 flex items-center">
+                    <i
+                      class="fa-solid fa-magnifying-glass text-color-site-300"
+                    ></i>
+                  </div>
                 </div>
+                <select
+                  multiple
+                  class="no-scrollbar dropdown-select h-40 w-full border-0 focus:outline-none focus:ring-0"
+                >
+                  <option value="citron" class="py-2">Jus de citron</option>
+                  <option value="glacons" class="py-2">Glaçons</option>
+                  <option value="tomate" class="py-2">Tomate</option>
+                  <option value="poulet" class="py-2">Poulet</option>
+                  <option value="poivron" class="py-2">Poivron rouge</option>
+                  <option value="thon" class="py-2">Thon en miettes</option>
+                  <option value="vinaigrette" class="py-2">Vinaigrette</option>
+                </select>
+              </div>
             </div>
-        </header>
-        <main class="mx-auto px-32 py-6">
-            <div class="flex items-center justify-between">
-                <div class="grid grid-cols-3 gap-16">
-                    <!-- Ingrédients Dropdown -->
-                    <div
-                        class="dropdown-container relative inline-block w-56 text-left"
-                    >
-                        <div class="flex flex-col justify-between">
-                            <button
-                                type="button"
-                                class="dropdown-button mr-16 inline-flex w-full cursor-pointer items-center justify-between rounded-xl bg-white p-4"
-                            >
-                                Ingrédients
-                                <i
-                                    class="fa-solid fa-chevron-down arrow-icon transition-transform duration-300"
-                                ></i>
-                            </button>
-                        </div>
-                        <div
-                            class="dropdown dropdown-panel absolute left-0 z-50 mt-0 hidden w-full origin-top transform rounded-b-xl border-t-0 border-gray-300 bg-white shadow-lg transition-all duration-300 ease-in-out"
-                        >
-                            <div class="py-2">
-                                <div
-                                    class="relative mb-2 flex items-center px-4"
-                                >
-                                    <input
-                                        type="text"
-                                        class="border-color-site-400 search-input w-full rounded-sm border px-3 py-2"
-                                        placeholder="Recherchez"
-                                    />
-                                    <button
-                                        class="clear-search-input absolute right-11 hidden p-2 text-color-site-300"
-                                    >
-                                        <i class="fas fa-times fa-xs"></i>
-                                    </button>
-                                    <div
-                                        class="absolute right-7 flex items-center"
-                                    >
-                                        <i
-                                            class="fa-solid fa-magnifying-glass text-color-site-300"
-                                        ></i>
-                                    </div>
-                                </div>
-                                <select
-                                    multiple
-                                    class="no-scrollbar dropdown-select h-40 w-full border-0 focus:outline-none focus:ring-0"
-                                >
-                                    <option value="citron" class="py-2">
-                                        Jus de citron
-                                    </option>
-                                    <option value="glacons" class="py-2">
-                                        Glaçons
-                                    </option>
-                                    <option value="tomate" class="py-2">
-                                        Tomate
-                                    </option>
-                                    <option value="poulet" class="py-2">
-                                        Poulet
-                                    </option>
-                                    <option value="poivron" class="py-2">
-                                        Poivron rouge
-                                    </option>
-                                    <option value="thon" class="py-2">
-                                        Thon en miettes
-                                    </option>
-                                    <option value="vinaigrette" class="py-2">
-                                        Vinaigrette
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+          </div>
 
-                    <!-- Appareils Dropdown -->
-                    <div
-                        class="dropdown-container relative inline-block w-56 text-left"
-                    >
-                        <div class="flex flex-col justify-between">
-                            <button
-                                type="button"
-                                class="dropdown-button mr-16 inline-flex w-full cursor-pointer items-center justify-between rounded-xl bg-white p-4"
-                            >
-                                Appareils
-                                <i
-                                    class="fa-solid fa-chevron-down arrow-icon transition-transform duration-300"
-                                ></i>
-                            </button>
-                        </div>
-                        <div
-                            class="dropdown dropdown-panel absolute left-0 z-50 mt-0 hidden w-full origin-top transform rounded-b-xl border-t-0 border-gray-300 bg-white shadow-lg transition-all duration-300 ease-in-out"
-                        >
-                            <div class="py-2">
-                                <div
-                                    class="relative mb-2 flex items-center px-4"
-                                >
-                                    <input
-                                        type="text"
-                                        class="border-color-site-400 search-input w-full rounded-sm border px-3 py-2"
-                                        placeholder="Recherchez"
-                                    />
-                                    <button
-                                        class="clear-search-input absolute right-11 hidden p-2 text-color-site-300"
-                                    >
-                                        <i class="fas fa-times fa-xs"></i>
-                                    </button>
-                                    <div
-                                        class="absolute right-7 flex items-center"
-                                    >
-                                        <i
-                                            class="fa-solid fa-magnifying-glass text-color-site-300"
-                                        ></i>
-                                    </div>
-                                </div>
-                                <select
-                                    multiple
-                                    class="no-scrollbar dropdown-select h-40 w-full border-0 focus:outline-none focus:ring-0"
-                                >
-                                    <option value="blender" class="py-2">
-                                        Blender
-                                    </option>
-                                    <option value="saladier" class="py-2">
-                                        Saladier
-                                    </option>
-                                    <option value="cocotte" class="py-2">
-                                        Cocotte
-                                    </option>
-                                    <option value="cuiseur" class="py-2">
-                                        Cuisseur de riz
-                                    </option>
-                                    <option value="four" class="py-2">
-                                        Four
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Ustensiles Dropdown -->
-                    <div
-                        class="dropdown-container relative inline-block w-56 text-left"
-                    >
-                        <div class="flex flex-col justify-between">
-                            <button
-                                type="button"
-                                class="dropdown-button mr-16 inline-flex w-full cursor-pointer items-center justify-between rounded-xl bg-white p-4"
-                            >
-                                Ustensiles
-                                <i
-                                    class="fa-solid fa-chevron-down arrow-icon transition-transform duration-300"
-                                ></i>
-                            </button>
-                        </div>
-                        <div
-                            class="dropdown dropdown-panel absolute left-0 z-50 mt-0 hidden w-full origin-top transform rounded-b-xl border-t-0 border-gray-300 bg-white shadow-lg transition-all duration-300 ease-in-out"
-                        >
-                            <div class="py-2">
-                                <div
-                                    class="relative mb-2 flex items-center px-4"
-                                >
-                                    <input
-                                        type="text"
-                                        class="border-color-site-400 search-input w-full rounded-sm border px-3 py-2"
-                                        placeholder="Recherchez"
-                                    />
-                                    <button
-                                        class="clear-search-input absolute right-11 hidden p-2 text-color-site-300"
-                                    >
-                                        <i class="fas fa-times fa-xs"></i>
-                                    </button>
-                                    <div
-                                        class="absolute right-7 flex items-center"
-                                    >
-                                        <i
-                                            class="fa-solid fa-magnifying-glass text-color-site-300"
-                                        ></i>
-                                    </div>
-                                </div>
-                                <select
-                                    multiple
-                                    class="no-scrollbar dropdown-select h-40 w-full border-0 focus:outline-none focus:ring-0"
-                                >
-                                    <option value="cuillere" class="py-2">
-                                        Cuillère à Soupe
-                                    </option>
-                                    <option value="verres" class="py-2">
-                                        Verres
-                                    </option>
-                                    <option value="presse" class="py-2">
-                                        Presse citron
-                                    </option>
-                                    <option value="couteau" class="py-2">
-                                        Couteau
-                                    </option>
-                                    <option value="saladier" class="py-2">
-                                        Saladier
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+          <!-- Appliances dropdown -->
+          <div
+            class="dropdown-container relative inline-block w-full pb-2 text-left lg:max-w-56 lg:pb-0"
+          >
+            <div class="flex flex-col justify-between">
+              <button
+                type="button"
+                class="dropdown-button mr-16 inline-flex w-full cursor-pointer items-center justify-between rounded-xl bg-white p-4"
+              >
+                Appareils
+                <i
+                  class="fa-solid fa-chevron-down arrow-icon transition-transform duration-300"
+                ></i>
+              </button>
+            </div>
+            <div
+              class="dropdown dropdown-panel absolute left-0 z-50 mt-0 hidden w-full origin-top transform rounded-b-xl border-t-0 border-gray-300 bg-white shadow-lg transition-all duration-300 ease-in-out"
+            >
+              <div class="py-2">
+                <div class="relative mb-2 flex items-center px-4">
+                  <input
+                    type="text"
+                    class="search-input w-full rounded-sm border border-color-site-400 px-3 py-2"
+                    placeholder="Recherchez"
+                  />
+                  <button
+                    class="clear-search-input absolute right-11 hidden p-2 text-color-site-300"
+                  >
+                    <i class="fas fa-times fa-xs"></i>
+                  </button>
+                  <div class="absolute right-7 flex items-center">
+                    <i
+                      class="fa-solid fa-magnifying-glass text-color-site-300"
+                    ></i>
+                  </div>
                 </div>
-
-                <span class="font-anton text-sm leading-8">1500 recettes</span>
-            </div>
-            <!-- Sélections -->
-            <div class="mb-11 mt-5">
-                <ul id="selected-items" class="flex gap-4">
-                    <li
-                        class="flex w-48 items-center justify-between rounded-lg bg-color-site-50 p-4 text-sm"
-                    >
-                        Crème de coco
-                        <button class="ml-2">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </li>
-                    <li
-                        class="flex w-48 items-center justify-between rounded-lg bg-color-site-50 p-4 text-sm"
-                    >
-                        Blender
-                        <button class="ml-2">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </li>
-                </ul>
-            </div>
-            <div class="grid grid-cols-3 gap-24">
-                <article
-                    class="relative flex flex-col overflow-hidden rounded-3xl bg-white shadow-lg"
+                <select
+                  multiple
+                  class="no-scrollbar dropdown-select h-40 w-full border-0 focus:outline-none focus:ring-0"
                 >
-                    <img
-                        src="src/assets/img/Recette01.jpg"
-                        alt="Limonade de Coco"
-                        class="h-64 w-full object-cover"
-                    />
-                    <div
-                        class="absolute right-4 top-4 rounded-xl bg-yellow-400 px-4 py-1 text-xs text-color-site-100"
-                    >
-                        10min
-                    </div>
-                    <div class="flex flex-grow flex-col px-6 pb-16 pt-8">
-                        <h2 class="mb-7 font-anton text-lg font-bold">
-                            Limonade de Coco
-                        </h2>
-                        <h3
-                            class="mb-2 text-sm font-bold uppercase tracking-wide text-color-site-300"
-                        >
-                            Recette
-                        </h3>
-                        <p class="mb-8 flex-grow text-gray-700">
-                            Mettre les glaçons à votre goût dans le blender,
-                            ajouter le lait, la crème de coco, le jus de 2
-                            citrons et le sucre. Mixer jusqu'à avoir la
-                            consistance désirée.
-                        </p>
-                        <h3
-                            class="mb-4 text-sm font-bold uppercase tracking-wide text-color-site-300"
-                        >
-                            Ingrédients
-                        </h3>
-                        <div class="grid grid-cols-2 gap-y-5">
-                            <div class="flex flex-col text-sm">
-                                <span>Lait de coco</span>
-                                <span class="text-color-site-300">400ml</span>
-                            </div>
-                            <div class="flex flex-col text-sm">
-                                <span>Jus de citron</span>
-                                <span class="text-color-site-300">2</span>
-                            </div>
-                            <div class="flex flex-col text-sm">
-                                <span>Crème de coco</span>
-                                <span class="text-color-site-300"
-                                    >4 cuillières</span
-                                >
-                            </div>
-                            <div class="flex flex-col text-sm">
-                                <span>Sucre</span>
-                                <span class="text-color-site-300">20g</span>
-                            </div>
-                            <div class="flex flex-col text-sm">
-                                <span>Glaçons</span>
-                                <span class="text-color-site-300">2</span>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article
-                    class="relative flex flex-col overflow-hidden rounded-3xl bg-white shadow-lg"
-                >
-                    <img
-                        src="src/assets/img/Recette02.jpg"
-                        alt="Limonade de Coco"
-                        class="h-64 w-full object-cover"
-                    />
-                    <div
-                        class="absolute right-4 top-4 rounded-xl bg-yellow-400 px-4 py-1 text-xs text-color-site-100"
-                    >
-                        10min
-                    </div>
-                    <div class="flex flex-grow flex-col px-6 pb-16 pt-8">
-                        <h2 class="mb-7 font-anton text-lg font-bold">
-                            Limonade de Coco
-                        </h2>
-                        <h3
-                            class="mb-2 text-sm font-bold uppercase tracking-wide text-color-site-300"
-                        >
-                            Recette
-                        </h3>
-                        <p class="mb-8 flex-grow text-gray-700">
-                            Mettre les glaçons à votre goût dans le blender,
-                            ajouter le lait, la crème de coco, le jus de 2
-                            citrons et le sucre. Mixer jusqu'à avoir la
-                            consistance désirée.
-                        </p>
-                        <h3
-                            class="mb-4 text-sm font-bold uppercase tracking-wide text-color-site-300"
-                        >
-                            Ingrédients
-                        </h3>
-                        <div class="grid grid-cols-2 gap-y-5">
-                            <div class="flex flex-col text-sm">
-                                <span>Lait de coco</span>
-                                <span class="text-color-site-300">400ml</span>
-                            </div>
-                            <div class="flex flex-col text-sm">
-                                <span>Jus de citron</span>
-                                <span class="text-color-site-300">2</span>
-                            </div>
-                            <div class="flex flex-col text-sm">
-                                <span>Crème de coco</span>
-                                <span class="text-color-site-300"
-                                    >4 cuillières</span
-                                >
-                            </div>
-                            <div class="flex flex-col text-sm">
-                                <span>Sucre</span>
-                                <span class="text-color-site-300">20g</span>
-                            </div>
-                            <div class="flex flex-col text-sm">
-                                <span>Glaçons</span>
-                                <span class="text-color-site-300">2</span>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article
-                    class="relative flex flex-col overflow-hidden rounded-3xl bg-white shadow-lg"
-                >
-                    <img
-                        src="src/assets/img/Recette03.jpg"
-                        alt="Limonade de Coco"
-                        class="h-64 w-full object-cover"
-                    />
-                    <div
-                        class="absolute right-4 top-4 rounded-xl bg-yellow-400 px-4 py-1 text-xs text-color-site-100"
-                    >
-                        10min
-                    </div>
-                    <div class="flex flex-grow flex-col px-6 pb-16 pt-8">
-                        <h2 class="mb-7 font-anton text-lg font-bold">
-                            Limonade de Coco
-                        </h2>
-                        <h3
-                            class="mb-2 text-sm font-bold uppercase tracking-wide text-color-site-300"
-                        >
-                            Recette
-                        </h3>
-                        <p class="mb-8 flex-grow text-gray-700">
-                            Mettre les glaçons à votre goût dans le blender,
-                            ajouter le lait, la crème de coco, le jus de 2
-                            citrons et le sucre. Mixer jusqu'à avoir la
-                            consistance désirée.
-                        </p>
-                        <h3
-                            class="mb-4 text-sm font-bold uppercase tracking-wide text-color-site-300"
-                        >
-                            Ingrédients
-                        </h3>
-                        <div class="grid grid-cols-2 gap-y-5">
-                            <div class="flex flex-col text-sm">
-                                <span>Lait de coco</span>
-                                <span class="text-color-site-300">400ml</span>
-                            </div>
-                            <div class="flex flex-col text-sm">
-                                <span>Jus de citron</span>
-                                <span class="text-color-site-300">2</span>
-                            </div>
-                            <div class="flex flex-col text-sm">
-                                <span>Crème de coco</span>
-                                <span class="text-color-site-300"
-                                    >4 cuillières</span
-                                >
-                            </div>
-                            <div class="flex flex-col text-sm">
-                                <span>Sucre</span>
-                                <span class="text-color-site-300">20g</span>
-                            </div>
-                            <div class="flex flex-col text-sm">
-                                <span>Glaçons</span>
-                                <span class="text-color-site-300">2</span>
-                            </div>
-                        </div>
-                    </div>
-                </article>
+                  <option value="blender" class="py-2">Blender</option>
+                  <option value="saladier" class="py-2">Saladier</option>
+                  <option value="cocotte" class="py-2">Cocotte</option>
+                  <option value="cuiseur" class="py-2">Cuisseur de riz</option>
+                  <option value="four" class="py-2">Four</option>
+                </select>
+              </div>
             </div>
-        </main>
-    </body>
+          </div>
+          <!-- Utensils dropdown -->
+          <div
+            class="dropdown-container relative inline-block w-full pb-4 text-left lg:max-w-56 lg:pb-0"
+          >
+            <div class="flex flex-col justify-between">
+              <button
+                type="button"
+                class="dropdown-button mr-16 inline-flex w-full cursor-pointer items-center justify-between rounded-xl bg-white p-4"
+              >
+                Ustensiles
+                <i
+                  class="fa-solid fa-chevron-down arrow-icon transition-transform duration-300"
+                ></i>
+              </button>
+            </div>
+            <div
+              class="dropdown dropdown-panel absolute left-0 z-50 mt-0 hidden w-full origin-top transform rounded-b-xl border-t-0 border-gray-300 bg-white shadow-lg transition-all duration-300 ease-in-out"
+            >
+              <div class="py-2">
+                <div class="relative mb-2 flex items-center px-4">
+                  <input
+                    type="text"
+                    class="search-input w-full rounded-sm border border-color-site-400 px-3 py-2"
+                    placeholder="Recherchez"
+                  />
+                  <button
+                    class="clear-search-input absolute right-11 hidden p-2 text-color-site-300"
+                  >
+                    <i class="fas fa-times fa-xs"></i>
+                  </button>
+                  <div class="absolute right-7 flex items-center">
+                    <i
+                      class="fa-solid fa-magnifying-glass text-color-site-300"
+                    ></i>
+                  </div>
+                </div>
+                <select
+                  multiple
+                  class="no-scrollbar dropdown-select h-40 w-full border-0 focus:outline-none focus:ring-0"
+                >
+                  <option value="cuillere" class="py-2">
+                    Cuillère à Soupe
+                  </option>
+                  <option value="verres" class="py-2">Verres</option>
+                  <option value="presse" class="py-2">Presse citron</option>
+                  <option value="couteau" class="py-2">Couteau</option>
+                  <option value="saladier" class="py-2">Saladier</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
 
-    <script src="src/js/utils/dropdown.js"></script>
-    <script type="module" src="src/js/app.js"></script>
+        <span class="text-center font-anton text-sm leading-8 lg:text-left"
+          >1500 recettes</span
+        >
+      </div>
+
+      <div class="mb-11 mt-5">
+        <ul id="selected-items" class="flex gap-4">
+          <li
+            class="flex w-48 items-center justify-between rounded-lg bg-color-site-50 p-4 text-sm"
+          >
+            Crème de coco
+            <button class="ml-2">
+              <i class="fas fa-times"></i>
+            </button>
+          </li>
+          <li
+            class="flex w-48 items-center justify-between rounded-lg bg-color-site-50 p-4 text-sm"
+          >
+            Blender
+            <button class="ml-2">
+              <i class="fas fa-times"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+      <div
+        class="grid grid-cols-1 gap-3 md:grid-cols-2 lg:gap-10 xl:grid-cols-3 xl:gap-12"
+      >
+        <article
+          class="relative flex flex-col overflow-hidden rounded-3xl bg-white shadow-lg"
+        >
+          <img
+            src="src/assets/img/Recette01.jpg"
+            alt="Limonade de Coco"
+            class="h-64 w-full object-cover"
+          />
+          <div
+            class="absolute right-4 top-4 rounded-xl bg-yellow-400 px-4 py-1 text-xs text-color-site-100"
+          >
+            10min
+          </div>
+          <div class="flex flex-grow flex-col px-6 pb-16 pt-8">
+            <h2 class="mb-7 font-anton text-lg font-bold">Limonade de Coco</h2>
+            <h3
+              class="mb-2 text-sm font-bold uppercase tracking-wide text-color-site-300"
+            >
+              Recette
+            </h3>
+            <p class="mb-8 flex-grow text-gray-700">
+              Mettre les glaçons à votre goût dans le blender, ajouter le lait,
+              la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à
+              avoir la consistance désirée.
+            </p>
+            <h3
+              class="mb-4 text-sm font-bold uppercase tracking-wide text-color-site-300"
+            >
+              Ingrédients
+            </h3>
+            <div class="grid grid-cols-2 gap-y-5">
+              <div class="flex flex-col text-sm">
+                <span>Lait de coco</span>
+                <span class="text-color-site-300">400ml</span>
+              </div>
+              <div class="flex flex-col text-sm">
+                <span>Jus de citron</span>
+                <span class="text-color-site-300">2</span>
+              </div>
+              <div class="flex flex-col text-sm">
+                <span>Crème de coco</span>
+                <span class="text-color-site-300">4 cuillières</span>
+              </div>
+              <div class="flex flex-col text-sm">
+                <span>Sucre</span>
+                <span class="text-color-site-300">20g</span>
+              </div>
+              <div class="flex flex-col text-sm">
+                <span>Glaçons</span>
+                <span class="text-color-site-300">2</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article
+          class="relative flex flex-col overflow-hidden rounded-3xl bg-white shadow-lg"
+        >
+          <img
+            src="src/assets/img/Recette02.jpg"
+            alt="Limonade de Coco"
+            class="h-64 w-full object-cover"
+          />
+          <div
+            class="absolute right-4 top-4 rounded-xl bg-yellow-400 px-4 py-1 text-xs text-color-site-100"
+          >
+            10min
+          </div>
+          <div class="flex flex-grow flex-col px-6 pb-16 pt-8">
+            <h2 class="mb-7 font-anton text-lg font-bold">Limonade de Coco</h2>
+            <h3
+              class="mb-2 text-sm font-bold uppercase tracking-wide text-color-site-300"
+            >
+              Recette
+            </h3>
+            <p class="mb-8 flex-grow text-gray-700">
+              Mettre les glaçons à votre goût dans le blender, ajouter le lait,
+              la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à
+              avoir la consistance désirée.
+            </p>
+            <h3
+              class="mb-4 text-sm font-bold uppercase tracking-wide text-color-site-300"
+            >
+              Ingrédients
+            </h3>
+            <div class="grid grid-cols-2 gap-y-5">
+              <div class="flex flex-col text-sm">
+                <span>Lait de coco</span>
+                <span class="text-color-site-300">400ml</span>
+              </div>
+              <div class="flex flex-col text-sm">
+                <span>Jus de citron</span>
+                <span class="text-color-site-300">2</span>
+              </div>
+              <div class="flex flex-col text-sm">
+                <span>Crème de coco</span>
+                <span class="text-color-site-300">4 cuillières</span>
+              </div>
+              <div class="flex flex-col text-sm">
+                <span>Sucre</span>
+                <span class="text-color-site-300">20g</span>
+              </div>
+              <div class="flex flex-col text-sm">
+                <span>Glaçons</span>
+                <span class="text-color-site-300">2</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article
+          class="relative flex flex-col overflow-hidden rounded-3xl bg-white shadow-lg"
+        >
+          <img
+            src="src/assets/img/Recette03.jpg"
+            alt="Limonade de Coco"
+            class="h-64 w-full object-cover"
+          />
+          <div
+            class="absolute right-4 top-4 rounded-xl bg-yellow-400 px-4 py-1 text-xs text-color-site-100"
+          >
+            10min
+          </div>
+          <div class="flex flex-grow flex-col px-6 pb-16 pt-8">
+            <h2 class="mb-7 font-anton text-lg font-bold">Limonade de Coco</h2>
+            <h3
+              class="mb-2 text-sm font-bold uppercase tracking-wide text-color-site-300"
+            >
+              Recette
+            </h3>
+            <p class="mb-8 flex-grow text-gray-700">
+              Mettre les glaçons à votre goût dans le blender, ajouter le lait,
+              la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à
+              avoir la consistance désirée.
+            </p>
+            <h3
+              class="mb-4 text-sm font-bold uppercase tracking-wide text-color-site-300"
+            >
+              Ingrédients
+            </h3>
+            <div class="grid grid-cols-2 gap-y-5">
+              <div class="flex flex-col text-sm">
+                <span>Lait de coco</span>
+                <span class="text-color-site-300">400ml</span>
+              </div>
+              <div class="flex flex-col text-sm">
+                <span>Jus de citron</span>
+                <span class="text-color-site-300">2</span>
+              </div>
+              <div class="flex flex-col text-sm">
+                <span>Crème de coco</span>
+                <span class="text-color-site-300">4 cuillières</span>
+              </div>
+              <div class="flex flex-col text-sm">
+                <span>Sucre</span>
+                <span class="text-color-site-300">20g</span>
+              </div>
+              <div class="flex flex-col text-sm">
+                <span>Glaçons</span>
+                <span class="text-color-site-300">2</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </main>
+  </body>
+
+  <script src="src/js/utils/dropdown.js"></script>
+  <script type="module" src="src/js/app.js"></script>
 </html>
