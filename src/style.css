@@ -3,35 +3,43 @@
 @tailwind utilities;
 
 .no-scrollbar::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.line-clamp-4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Faire tourner l'icône */
 .rotate-180 {
-    transform: rotate(180deg);
-    transition: transform 0.3s;
+  transform: rotate(180deg);
+  transition: transform 0.3s;
 }
 
 /* Transitions pour le dropdown */
 .dropdown {
-    transition:
-        max-height 0.3s ease,
-        opacity 0.3s ease;
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
+  transition:
+    max-height 0.3s ease,
+    opacity 0.3s ease;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
 }
 
 .dropdown-open {
-    max-height: 500px;
-    opacity: 1;
+  max-height: 500px;
+  opacity: 1;
 }
 
 /* Options select */
 .dropdown-select option:hover {
-    background-color: #ffd15b;
+  background-color: #ffd15b;
 }
