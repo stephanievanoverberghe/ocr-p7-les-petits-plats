@@ -55,14 +55,14 @@ class App {
         });
     }
 
-    filterRecipes(query) {
-        const filteredRecipes = this.recipes.filter(recipe =>
-            recipe.name.toLowerCase().includes(query.toLowerCase()) ||
-            recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(query.toLowerCase()))
-        );
-        this.updateRecipeCount(filteredRecipes.length);
-        this.displayRecipes(filteredRecipes);
-    }
+    // filterRecipes(query) {
+    //     const filteredRecipes = this.recipes.filter(recipe =>
+    //         recipe.name.toLowerCase().includes(query.toLowerCase()) ||
+    //         recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(query.toLowerCase()))
+    //     );
+    //     this.updateRecipeCount(filteredRecipes.length);
+    //     this.displayRecipes(filteredRecipes);
+    // }
 
     updateRecipeCount(count) {
         const recipeCountElement = document.getElementById('recipe-count');

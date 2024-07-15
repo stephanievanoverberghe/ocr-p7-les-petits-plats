@@ -5,7 +5,7 @@ module.exports = {
   content: [
     "./src/**/*.html",
     "./src/**/*.js",
-    "./*.{html, js}"
+    "./*.{html,js}"
   ],
   theme: {
     // A l'extérieur, ça remplace les fonctionnalités se trouvant dans le thème tailwind
