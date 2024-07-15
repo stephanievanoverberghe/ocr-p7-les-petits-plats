@@ -278,4 +278,5 @@ class App {
 const app = new App();
 app.main();
 
+// Pour rendre removeSelectedItem accessible depuis le HTML
 window.app = app;
