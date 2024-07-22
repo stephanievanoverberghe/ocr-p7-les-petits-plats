@@ -14,24 +14,4 @@ export class Recipe {
         this.appliance = data.appliance;
         this.ustensils = data.ustensils;
     }
-
-    /**
-     * Get the formatted ingredient list.
-     * @returns {string} - Formatted ingredients list.
-     */
-    getFormattedIngredients() {
-        return this.ingredients.map(ingredient => {
-            let quantity = ingredient.quantity ? `: ${ingredient.quantity}` : '';
-            let unit = ingredient.unit ? ` ${ingredient.unit}` : '';
-            return `${ingredient.ingredient}${quantity}${unit}`;
-        }).join(', ');
-    }
-
-    /**
-     * Get the formatted ustensils list.
-     * @returns {string} - Formatted ustensils list.
-     */
-    getFormattedUstensils() {
-        return this.ustensils.join(', ');
-    }
 }
