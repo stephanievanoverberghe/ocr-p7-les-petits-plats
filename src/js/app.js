@@ -15,12 +15,14 @@ let selectedItems = {
  * @returns {string} - The escaped string.
  */
 const escapeHtml = unsafe => {
-    return unsafe
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+    const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+    return unsafe.replace(/[&<>"']/g, m => map[m]);
 };
 
 /**
@@ -31,16 +33,7 @@ const escapeHtml = unsafe => {
  */
 const searchRecipesNative = (query, recipes) => {
     const lowerCaseQuery = query.toLowerCase();
-    const results = [];
-
-    for (let i = 0; i < recipes.length; i++) {
-        const recipe = recipes[i];
-        if (matchesQuery(lowerCaseQuery, recipe)) {
-            results.push(recipe);
-        }
-    }
-
-    return results;
+    return recipes.filter(recipe => matchesQuery(lowerCaseQuery, recipe));
 };
 
 /**
@@ -110,12 +103,8 @@ const main = async () => {
  */
 const displayRecipes = recipes => {
     const recipesContainer = document.querySelector('#recipes-container');
-    recipesContainer.innerHTML = '';
-
-    recipes.forEach(recipe => {
-        const recipeCard = document.createElement('article');
-        recipeCard.classList.add('relative', 'flex', 'flex-col', 'overflow-hidden', 'rounded-3xl', 'bg-white', 'shadow-lg');
-        recipeCard.innerHTML = `
+    recipesContainer.innerHTML = recipes.map(recipe => `
+        <article class="relative flex flex-col overflow-hidden rounded-3xl bg-white shadow-lg">
             <img src="src/assets/img/${recipe.image}" alt="${escapeHtml(recipe.name)}" class="h-64 w-full object-cover"/>
             <div class="absolute right-4 top-4 rounded-xl bg-yellow-400 px-4 py-1 text-xs text-color-site-100">${recipe.time}min</div>
             <div class="flex flex-grow flex-col px-6 pb-16 pt-8">
@@ -132,9 +121,8 @@ const displayRecipes = recipes => {
                     `).join('')}
                 </div>
             </div>
-        `;
-        recipesContainer.appendChild(recipeCard);
-    });
+        </article>
+    `).join('');
 };
 
 /**
@@ -194,36 +182,21 @@ const populateSelects = () => {
  */
 const populateSelect = (selectId, items) => {
     const select = document.querySelector(selectId);
-    select.innerHTML = '';
-    items.forEach(item => {
-        const option = document.createElement('option');
-        option.value = item;
-        option.textContent = item;
-        option.classList.add('py-2', 'capitalize-first-letter');
-        select.appendChild(option);
-    });
+    select.innerHTML = Array.from(items).map(item => `
+        <option value="${item}" class="py-2 capitalize-first-letter">${item}</option>
+    `).join('');
 };
 
 /**
  * Add event listeners for the select elements.
  */
 const addSelectEventListeners = () => {
-    document.querySelector('#ingredients-select').addEventListener('change', (event) => {
-        addSelectedItem('ingredients', event.target.value);
-        event.target.value = '';
-        filterRecipes(document.querySelector('#search').value);
-    });
-
-    document.querySelector('#appliances-select').addEventListener('change', (event) => {
-        addSelectedItem('appliances', event.target.value);
-        event.target.value = '';
-        filterRecipes(document.querySelector('#search').value);
-    });
-
-    document.querySelector('#ustensils-select').addEventListener('change', (event) => {
-        addSelectedItem('ustensils', event.target.value);
-        event.target.value = '';
-        filterRecipes(document.querySelector('#search').value);
+    ['ingredients', 'appliances', 'ustensils'].forEach(type => {
+        document.querySelector(`#${type}-select`).addEventListener('change', (event) => {
+            addSelectedItem(type, event.target.value);
+            event.target.value = '';
+            filterRecipes(document.querySelector('#search').value);
+        });
     });
 };
 
@@ -244,21 +217,16 @@ const addSelectedItem = (type, value) => {
  */
 const updateSelectedItemsDisplay = () => {
     const selectedItemsContainer = document.querySelector('#selected-items');
-    selectedItemsContainer.innerHTML = '';
-
-    Object.keys(selectedItems).forEach(type => {
-        selectedItems[type].forEach(item => {
-            const listItem = document.createElement('li');
-            listItem.classList.add('flex', 'w-48', 'items-center', 'justify-between', 'rounded-lg', 'bg-color-site-50', 'p-4', 'text-sm');
-            listItem.innerHTML = `
+    selectedItemsContainer.innerHTML = Object.keys(selectedItems).map(type => {
+        return Array.from(selectedItems[type]).map(item => `
+            <li class="flex w-48 items-center justify-between rounded-lg bg-color-site-50 p-4 text-sm">
                 ${escapeHtml(item)}
                 <button class="ml-2" onclick="removeSelectedItem('${type}', '${item}')">
                     <i class="fas fa-times"></i>
                 </button>
-            `;
-            selectedItemsContainer.appendChild(listItem);
-        });
-    });
+            </li>
+        `).join('');
+    }).join('');
 };
 
 /**
