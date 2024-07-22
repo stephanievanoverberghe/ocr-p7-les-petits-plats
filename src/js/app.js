@@ -142,8 +142,19 @@ const filterRecipes = query => {
  */
 const updateRecipeCount = count => {
     const recipeCountElement = document.querySelector('#recipe-count');
-    recipeCountElement.textContent = count === 0 ? '00 recette' : `${count.toString().padStart(2, '0')} recettes`;
+    let countText;
+
+    if (count === 0) {
+        countText = '00 recette';
+    } else if (count === 1) {
+        countText = '01 recette';
+    } else {
+        countText = `${count.toString().padStart(2, '0')} recettes`;
+    }
+
+    recipeCountElement.textContent = countText;
 };
+
 
 /**
  * Truncate the description to a specified number of lines.
