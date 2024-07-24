@@ -7,7 +7,10 @@
   "scripts": {
     "start": "tailwindcss -i ./src/style.css -o ./src/output.css --watch",
     "build": "tailwindcss -o ./src/output.css --minify",
-    "minify-images": "node imagemin.js"
+    "minify-images": "node imagemin.js",
+    "dev": "vite",
+    "build-vite": "vite build",
+    "preview": "vite preview"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +24,7 @@
     "imagemin-svgo": "^11.0.1",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.12",
-    "tailwindcss": "^3.4.1"
+    "tailwindcss": "^3.4.1",
+    "vite": "^5.3.4"
   }
 }
