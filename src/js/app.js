@@ -1,5 +1,6 @@
 import { fetchRecipes } from "./api/api.js";
 import { Recipe } from "./models/recipe.js";
+import data from "../data/recipes.json";
 
 // Global variables to hold recipes
 let recipes = [];
@@ -9,7 +10,7 @@ let recipes = [];
  */
 const main = async () => {
     try {
-        const recipesData = await fetchRecipes('src/data/recipes.json');
+        const recipesData = await fetchRecipes(data);
         if (recipesData && recipesData.recipes) {
             recipes = recipesData.recipes.map(data => new Recipe(data));
             updateRecipeCount(recipes.length);
