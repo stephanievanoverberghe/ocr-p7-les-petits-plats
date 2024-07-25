@@ -33,7 +33,16 @@ const escapeHtml = unsafe => {
  */
 const searchRecipesNative = (query, recipes) => {
     const lowerCaseQuery = query.toLowerCase();
-    return recipes.filter(recipe => matchesQuery(lowerCaseQuery, recipe));
+    const results = [];
+
+    for (let i = 0; i < recipes.length; i++) {
+        const recipe = recipes[i];
+        if (matchesQuery(lowerCaseQuery, recipe)) {
+            results.push(recipe);
+        }
+    }
+
+    return results;
 };
 
 /**
@@ -55,18 +64,19 @@ const matchesQuery = (query, recipe) => {
  * @returns {boolean} - True if the recipe matches the selected items, false otherwise.
  */
 const matchesSelectedItems = (recipe, selectedItems) => {
-    const ingredientMatch = Array.from(selectedItems.ingredients).every(item =>
-        recipe.ingredients.some(ing => ing.ingredient.toLowerCase() === item.toLowerCase())
+    return matchesAllItems(recipe.ingredients, selectedItems.ingredients, 'ingredient') &&
+        matchesSingleItem(recipe.appliance, selectedItems.appliances) &&
+        matchesAllItems(recipe.ustensils, selectedItems.ustensils);
+};
+
+const matchesAllItems = (recipeItems, selectedItems, key) => {
+    return Array.from(selectedItems).every(item =>
+        recipeItems.some(ing => (key ? ing[key] : ing).toLowerCase() === item.toLowerCase())
     );
+};
 
-    const applianceMatch = selectedItems.appliances.size === 0 ||
-        selectedItems.appliances.has(recipe.appliance.toLowerCase());
-
-    const ustensilMatch = Array.from(selectedItems.ustensils).every(item =>
-        recipe.ustensils.some(ust => ust.toLowerCase() === item.toLowerCase())
-    );
-
-    return ingredientMatch && applianceMatch && ustensilMatch;
+const matchesSingleItem = (recipeItem, selectedItems) => {
+    return selectedItems.size === 0 || selectedItems.has(recipeItem.toLowerCase());
 };
 
 /**
@@ -103,26 +113,37 @@ const main = async () => {
  */
 const displayRecipes = recipes => {
     const recipesContainer = document.querySelector('#recipes-container');
-    recipesContainer.innerHTML = recipes.map(recipe => `
-        <article class="relative flex flex-col overflow-hidden rounded-3xl bg-white shadow-lg">
-            <img src="src/assets/img/${recipe.image}" alt="${escapeHtml(recipe.name)}" class="h-64 w-full object-cover"/>
-            <div class="absolute right-4 top-4 rounded-xl bg-yellow-400 px-4 py-1 text-xs text-color-site-100">${recipe.time}min</div>
-            <div class="flex flex-grow flex-col px-6 pb-16 pt-8">
-                <h2 class="mb-7 font-anton text-lg font-bold">${escapeHtml(recipe.name)}</h2>
-                <h3 class="mb-2 text-sm font-bold uppercase tracking-wide text-color-site-300">Recette</h3>
-                <p class="mb-8 flex-grow text-gray-700 line-clamp-4">${escapeHtml(truncateDescription(recipe.description))}</p>
-                <h3 class="mb-4 text-sm font-bold uppercase tracking-wide text-color-site-300">Ingrédients</h3>
-                <div class="grid grid-cols-2 gap-y-5">
-                    ${recipe.ingredients.map(ingredient => `
-                        <div class="flex flex-col text-sm">
-                            <span class="font-medium">${escapeHtml(ingredient.ingredient)}</span>
-                            <span class="text-color-site-300">${ingredient.quantity || ''} ${ingredient.unit || ''}</span>
-                        </div>
-                    `).join('')}
-                </div>
+    recipesContainer.innerHTML = '';
+
+    for (let i = 0; i < recipes.length; i++) {
+        const recipe = recipes[i];
+        const recipeCard = createRecipeCard(recipe);
+        recipesContainer.appendChild(recipeCard);
+    }
+};
+
+const createRecipeCard = (recipe) => {
+    const recipeCard = document.createElement('article');
+    recipeCard.classList.add('relative', 'flex', 'flex-col', 'overflow-hidden', 'rounded-3xl', 'bg-white', 'shadow-lg');
+    recipeCard.innerHTML = `
+        <img src="src/assets/img/${recipe.image}" alt="${escapeHtml(recipe.name)}" class="h-64 w-full object-cover"/>
+        <div class="absolute right-4 top-4 rounded-xl bg-yellow-400 px-4 py-1 text-xs text-color-site-100">${recipe.time}min</div>
+        <div class="flex flex-grow flex-col px-6 pb-16 pt-8">
+            <h2 class="mb-7 font-anton text-lg font-bold">${escapeHtml(recipe.name)}</h2>
+            <h3 class="mb-2 text-sm font-bold uppercase tracking-wide text-color-site-300">Recette</h3>
+            <p class="mb-8 flex-grow text-gray-700 line-clamp-4">${escapeHtml(truncateDescription(recipe.description))}</p>
+            <h3 class="mb-4 text-sm font-bold uppercase tracking-wide text-color-site-300">Ingrédients</h3>
+            <div class="grid grid-cols-2 gap-y-5">
+                ${recipe.ingredients.map(ingredient => `
+                    <div class="flex flex-col text-sm">
+                        <span class="font-medium">${escapeHtml(ingredient.ingredient)}</span>
+                        <span class="text-color-site-300">${ingredient.quantity || ''} ${ingredient.unit || ''}</span>
+                    </div>
+                `).join('')}
             </div>
-        </article>
-    `).join('');
+        </div>
+    `;
+    return recipeCard;
 };
 
 /**
@@ -155,7 +176,6 @@ const updateRecipeCount = count => {
     recipeCountElement.textContent = countText;
 };
 
-
 /**
  * Truncate the description to a specified number of lines.
  * @param {string} description - The description to truncate.
@@ -175,15 +195,22 @@ const populateSelects = () => {
     const appliances = new Set();
     const ustensils = new Set();
 
-    recipes.forEach(recipe => {
-        recipe.ingredients.forEach(ingredient => ingredients.add(ingredient.ingredient));
+    for (let i = 0; i < recipes.length; i++) {
+        const recipe = recipes[i];
+        addItemsToSet(recipe.ingredients, ingredients, 'ingredient');
         appliances.add(recipe.appliance);
-        recipe.ustensils.forEach(ustensil => ustensils.add(ustensil));
-    });
+        addItemsToSet(recipe.ustensils, ustensils);
+    }
 
     populateSelect('#ingredients-select', ingredients);
     populateSelect('#appliances-select', appliances);
     populateSelect('#ustensils-select', ustensils);
+};
+
+const addItemsToSet = (items, set, key) => {
+    for (let i = 0; i < items.length; i++) {
+        set.add(key ? items[i][key] : items[i]);
+    }
 };
 
 /**
@@ -193,9 +220,17 @@ const populateSelects = () => {
  */
 const populateSelect = (selectId, items) => {
     const select = document.querySelector(selectId);
-    select.innerHTML = Array.from(items).map(item => `
-        <option value="${item}" class="py-2 capitalize-first-letter">${item}</option>
-    `).join('');
+    select.innerHTML = '';
+
+    const itemsArray = Array.from(items);
+    for (let i = 0; i < itemsArray.length; i++) {
+        const item = itemsArray[i];
+        const option = document.createElement('option');
+        option.value = item;
+        option.textContent = item;
+        option.classList.add('py-2', 'capitalize-first-letter');
+        select.appendChild(option);
+    }
 };
 
 /**
@@ -228,16 +263,30 @@ const addSelectedItem = (type, value) => {
  */
 const updateSelectedItemsDisplay = () => {
     const selectedItemsContainer = document.querySelector('#selected-items');
-    selectedItemsContainer.innerHTML = Object.keys(selectedItems).map(type => {
-        return Array.from(selectedItems[type]).map(item => `
-            <li class="flex w-48 items-center justify-between rounded-lg bg-color-site-50 p-4 text-sm">
-                ${escapeHtml(item)}
-                <button class="ml-2" onclick="removeSelectedItem('${type}', '${item}')">
-                    <i class="fas fa-times"></i>
-                </button>
-            </li>
-        `).join('');
-    }).join('');
+    selectedItemsContainer.innerHTML = '';
+
+    const types = Object.keys(selectedItems);
+    for (let i = 0; i < types.length; i++) {
+        const type = types[i];
+        const itemsArray = Array.from(selectedItems[type]);
+        for (let j = 0; j < itemsArray.length; j++) {
+            const item = itemsArray[j];
+            const listItem = createListItem(type, item);
+            selectedItemsContainer.appendChild(listItem);
+        }
+    }
+};
+
+const createListItem = (type, item) => {
+    const listItem = document.createElement('li');
+    listItem.classList.add('flex', 'w-48', 'items-center', 'justify-between', 'rounded-lg', 'bg-color-site-50', 'p-4', 'text-sm');
+    listItem.innerHTML = `
+        ${escapeHtml(item)}
+        <button class="ml-2" onclick="removeSelectedItem('${type}', '${item}')">
+            <i class="fas fa-times"></i>
+        </button>
+    `;
+    return listItem;
 };
 
 /**
