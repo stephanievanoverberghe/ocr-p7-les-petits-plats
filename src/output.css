@@ -1,5 +1,5 @@
 /*
-! tailwindcss v3.4.7 | MIT License | https://tailwindcss.com
+! tailwindcss v3.4.4 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -1382,12 +1382,20 @@ select {
 }
 
 @media (min-width: 1024px) {
+  .lg\:right-2 {
+    right: 0.5rem;
+  }
+
   .lg\:right-2\.5 {
     right: 0.625rem;
   }
 
   .lg\:right-20 {
     right: 5rem;
+  }
+
+  .lg\:top-2 {
+    top: 0.5rem;
   }
 
   .lg\:top-2\.5 {

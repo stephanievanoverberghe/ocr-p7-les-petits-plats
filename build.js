@@ -8,7 +8,6 @@ const filesToMinify = [
     "src/js/utils/dropdown.js",
     "src/js/api/api.js",
     "src/js/models/recipe.js"
-    // Ajoutez d'autres fichiers ici si nécessaire
 ];
 
 // Fonction pour minifier un fichier
