@@ -5,15 +5,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tailwindcss -i ./src/style.css -o ./src/output.css --watch",
+    "buildCss": "tailwindcss -i ./src/style.css -o ./src/output.css --watch",
     "build": "tailwindcss -o ./src/output.css --minify",
-    "buildJs": "uglifyjs src/js/*.js -o dist/js/app.min.js"
+    "buildJs": "node build.js",
+    "serve": "npm-run-all --parallel buildCss buildJs"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.7",
+    "npm-run-all": "^4.1.5",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.5.14",
     "tailwindcss": "^3.4.7",
