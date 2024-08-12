@@ -8,20 +8,24 @@ const togglePanel = (panel, isHidden, button, arrowIcon) => {
     arrowIcon.classList.toggle('rotate-180');
 };
 
+const closeDropdown = (dropdown) => {
+    const panel = dropdown.querySelector('.dropdown-panel');
+    const button = dropdown.querySelector('.dropdown-button');
+    const arrowIcon = dropdown.querySelector('.arrow-icon');
+
+    panel.classList.add('hidden');
+    panel.classList.remove('dropdown-open');
+    panel.classList.add('scale-y-0');
+    panel.classList.remove('scale-y-100');
+    button.classList.add('rounded-xl');
+    button.classList.remove('rounded-t-xl');
+    arrowIcon.classList.remove('rotate-180');
+};
+
 const closeOtherDropdowns = (currentDropdown) => {
     document.querySelectorAll('.dropdown-container').forEach(otherDropdown => {
         if (otherDropdown !== currentDropdown) {
-            const otherPanel = otherDropdown.querySelector('.dropdown-panel');
-            const otherButton = otherDropdown.querySelector('.dropdown-button');
-            const otherArrowIcon = otherDropdown.querySelector('.arrow-icon');
-
-            otherPanel.classList.add('hidden');
-            otherPanel.classList.remove('dropdown-open');
-            otherPanel.classList.add('scale-y-0');
-            otherPanel.classList.remove('scale-y-100');
-            otherButton.classList.add('rounded-xl');
-            otherButton.classList.remove('rounded-t-xl');
-            otherArrowIcon.classList.remove('rotate-180');
+            closeDropdown(otherDropdown);
         }
     });
 };
@@ -48,7 +52,8 @@ const setupDropdown = (dropdown) => {
     const clearButton = dropdown.querySelector('.clear-search-input');
     const select = dropdown.querySelector('.dropdown-select');
 
-    button.addEventListener('click', () => {
+    button.addEventListener('click', (event) => {
+        event.stopPropagation(); // Empêche la propagation pour éviter la fermeture immédiate
         const isHidden = panel.classList.contains('hidden');
 
         closeOtherDropdowns(dropdown);
@@ -65,5 +70,14 @@ const setupDropdown = (dropdown) => {
         filterOptions(searchInput, select, clearButton);
     });
 };
+
+// Fermer le dropdown lorsqu'on clique en dehors
+document.addEventListener('click', (event) => {
+    document.querySelectorAll('.dropdown-container').forEach(dropdown => {
+        if (!dropdown.contains(event.target)) {
+            closeDropdown(dropdown);
+        }
+    });
+});
 
 document.querySelectorAll('.dropdown-container').forEach(setupDropdown);
