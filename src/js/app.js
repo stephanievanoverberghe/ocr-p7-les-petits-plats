@@ -1,5 +1,5 @@
-import { fetchRecipes } from "./api/api.js";
-import { Recipe } from "./models/recipe.js";
+import { fetchRecipes } from "./api.min.js";
+import { Recipe } from "./recipe.min.js";
 
 // Global variables to hold recipes and selected items
 let recipes = [];
