@@ -44,7 +44,7 @@ const displayRecipes = recipes => {
         recipeCard.innerHTML = `
             <picture>
                 <source data-srcset="dist/assets/img/${imageNameWithoutExt}.webp" type="image/webp">
-                <img data-src="src/assets/img/${recipe.image}" alt="${recipe.name}" class="h-64 w-full object-cover lazyload"/>
+                <img data-src="dist/assets/img/${imageNameWithoutExt}.webp" alt="${recipe.name}" class="h-64 w-full object-cover lazyload"/>
             </picture>
             <div class="absolute right-4 top-4 rounded-xl bg-yellow-400 px-4 py-1 text-xs text-color-site-100">${recipe.time}min</div>
             <div class="flex flex-grow flex-col px-6 pb-16 pt-8">
