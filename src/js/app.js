@@ -9,6 +9,51 @@ let selectedItems = {
     ustensils: new Set()
 };
 
+const dropdownsData = [
+    { id: 'ingredients', label: 'Ingrédients' },
+    { id: 'appliances', label: 'Appareils' },
+    { id: 'ustensils', label: 'Ustensiles' }
+];
+
+// Function to generate dropdown HTML structure
+const generateDropdown = ({ id, label }) => {
+    return `
+        <div class="dropdown-container relative inline-block w-full pb-2 text-left lg:max-w-56 lg:pb-0">
+            <div class="flex flex-col justify-between">
+                <button type="button"
+                    class="dropdown-button mr-16 inline-flex w-full cursor-pointer items-center justify-between rounded-xl bg-white p-4">
+                    ${label}
+                    <i class="fa-solid fa-chevron-down arrow-icon transition-transform duration-300"></i>
+                </button>
+            </div>
+            <div class="dropdown dropdown-panel absolute left-0 z-50 mt-0 hidden w-full origin-top transform rounded-b-xl border-t-0 border-gray-300 bg-white shadow-lg transition-all duration-300 ease-in-out">
+                <div class="py-2">
+                    <div class="relative mb-2 flex items-center px-4">
+                        <input type="text" class="search-input w-full rounded-sm border border-color-site-400 px-3 py-2"
+                            placeholder="Recherchez" />
+                        <button class="clear-search-input absolute right-11 hidden p-2 text-color-site-300">
+                            <i class="fas fa-times fa-xs"></i>
+                        </button>
+                        <div class="absolute right-7 flex items-center">
+                            <i class="fa-solid fa-magnifying-glass text-color-site-300"></i>
+                        </div>
+                    </div>
+                    <select multiple class="no-scrollbar dropdown-select h-40 w-full border-0 focus:outline-none focus:ring-0"
+                        id="${id}-select"></select>
+                </div>
+            </div>
+        </div>
+    `;
+};
+
+// Function to render dropdowns
+const renderDropdowns = () => {
+    const dropdownsContainer = document.querySelector('#dropdowns-container');
+    dropdownsData.forEach(data => {
+        dropdownsContainer.innerHTML += generateDropdown(data);
+    });
+};
+
 /**
  * Escape HTML characters to prevent XSS attacks.
  * @param {string} unsafe - The unsafe string to escape.
@@ -89,8 +134,17 @@ const main = async () => {
         if (data && data.recipes) {
             recipes = data.recipes.map(recipe => new Recipe(recipe));
             updateRecipeCount(recipes.length);
-            displayRecipes(recipes);
-            populateSelects();
+
+            renderDropdowns(); // Assurez-vous que les dropdowns sont générés ici
+
+            populateSelects(); // Populate les selects après que les dropdowns soient créés
+
+            addSelectEventListeners(); // Ajoutez les écouteurs d'événements pour les selects
+
+            // Initialisation des dropdowns après qu'ils ont été ajoutés au DOM
+            document.querySelectorAll('.dropdown-container').forEach(setupDropdown);
+
+            displayRecipes(recipes); // Enfin, affichez les recettes
 
             document.querySelector('#search').addEventListener('input', (event) => filterRecipes(event.target.value));
             document.querySelector('#clear-button').addEventListener('click', () => {
@@ -98,7 +152,6 @@ const main = async () => {
                 filterRecipes('');
             });
 
-            addSelectEventListeners();
         } else {
             console.error('No recipes found in the data');
         }
@@ -106,6 +159,7 @@ const main = async () => {
         console.error('Error in main:', error);
     }
 };
+
 
 /**
  * Display recipes in the DOM.
