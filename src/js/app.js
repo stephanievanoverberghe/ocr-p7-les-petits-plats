@@ -97,10 +97,25 @@ const searchRecipesNative = (query, recipes) => {
  * @returns {boolean} - True if the recipe matches the query, false otherwise.
  */
 const matchesQuery = (query, recipe) => {
-    return recipe.name.toLowerCase().includes(query) ||
-        recipe.ingredients.map(ing => ing.ingredient.toLowerCase()).join(' ').includes(query) ||
-        recipe.description.toLowerCase().includes(query);
+    const lowerCaseQuery = query.toLowerCase();
+
+    if (recipe.name.toLowerCase().includes(lowerCaseQuery)) {
+        return true;
+    }
+
+    for (let i = 0; i < recipe.ingredients.length; i++) {
+        if (recipe.ingredients[i].ingredient.toLowerCase().includes(lowerCaseQuery)) {
+            return true;
+        }
+    }
+
+    if (recipe.description.toLowerCase().includes(lowerCaseQuery)) {
+        return true;
+    }
+
+    return false;
 };
+
 
 /**
  * Check if a recipe matches the selected items.
