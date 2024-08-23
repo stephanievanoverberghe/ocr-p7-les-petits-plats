@@ -15,7 +15,13 @@ const dropdownsData = [
     { id: 'ustensils', label: 'Ustensiles' }
 ];
 
-// Function to generate dropdown HTML structure
+/**
+ * Generate the HTML structure for a dropdown.
+ * @param {Object} param0 - The dropdown data.
+ * @param {string} param0.id - The ID of the dropdown.
+ * @param {string} param0.label - The label of the dropdown.
+ * @returns {string} - The HTML string for the dropdown.
+ */
 const generateDropdown = ({ id, label }) => {
     return `
         <div class="dropdown-container relative inline-block w-full pb-2 text-left lg:max-w-56 lg:pb-0">
@@ -46,7 +52,9 @@ const generateDropdown = ({ id, label }) => {
     `;
 };
 
-// Function to render dropdowns
+/**
+ * Render all dropdowns into the DOM.
+ */
 const renderDropdowns = () => {
     const dropdownsContainer = document.querySelector('#dropdowns-container');
     dropdownsData.forEach(data => {
@@ -104,7 +112,7 @@ const matchesQuery = (query, recipe) => {
     }
 
     for (let i = 0; i < recipe.ingredients.length; i++) {
-        if (recipe.ingredients[i].toLowerCase().includes(lowerCaseQuery)) {
+        if (recipe.ingredients[i].ingredient.toLowerCase().includes(lowerCaseQuery)) {
             return true;
         }
     }
@@ -129,12 +137,43 @@ const matchesSelectedItems = (recipe, selectedItems) => {
         matchesAllItems(recipe.ustensils, selectedItems.ustensils);
 };
 
+/**
+ * Check if all selected items match the recipe items.
+ * @param {Array} recipeItems - The items in the recipe.
+ * @param {Set} selectedItems - The selected items.
+ * @param {string} [key] - The key to match on, if applicable.
+ * @returns {boolean} - True if all selected items match, false otherwise.
+ */
 const matchesAllItems = (recipeItems, selectedItems, key) => {
-    return Array.from(selectedItems).every(item =>
-        recipeItems.some(ing => (key ? ing[key] : ing).toLowerCase() === item.toLowerCase())
-    );
+    const selectedArray = Array.from(selectedItems);
+
+    for (let i = 0; i < selectedArray.length; i++) {
+        const selectedItem = selectedArray[i].toLowerCase();
+        let found = false;
+
+        for (let j = 0; j < recipeItems.length; j++) {
+            const recipeItem = (key ? recipeItems[j][key] : recipeItems[j]).toLowerCase();
+
+            if (recipeItem === selectedItem) {
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            return false;
+        }
+    }
+
+    return true;
 };
 
+/**
+ * Check if a single recipe item matches any of the selected items.
+ * @param {string} recipeItem - The item in the recipe.
+ * @param {Set} selectedItems - The selected items.
+ * @returns {boolean} - True if the item matches or there are no selected items, false otherwise.
+ */
 const matchesSingleItem = (recipeItem, selectedItems) => {
     return selectedItems.size === 0 || selectedItems.has(recipeItem.toLowerCase());
 };
@@ -191,6 +230,11 @@ const displayRecipes = recipes => {
     }
 };
 
+/**
+ * Create a recipe card element.
+ * @param {Object} recipe - The recipe object.
+ * @returns {HTMLElement} - The recipe card element.
+ */
 const createRecipeCard = (recipe) => {
     const recipeCard = document.createElement('article');
     recipeCard.classList.add('relative', 'flex', 'flex-col', 'overflow-hidden', 'rounded-3xl', 'bg-white', 'shadow-lg');
@@ -216,15 +260,25 @@ const createRecipeCard = (recipe) => {
 };
 
 /**
- * Filter the recipes based on the search query and selected items.
+ * Filter the recipes based on the search query and selected items using native loops.
  * @param {string} query - The search query.
  */
 const filterRecipes = query => {
-    const filteredRecipes = searchRecipesNative(query, recipes)
-        .filter(recipe => matchesSelectedItems(recipe, selectedItems));
+    const searchResults = searchRecipesNative(query, recipes);
+    const filteredRecipes = [];
+
+    for (let i = 0; i < searchResults.length; i++) {
+        const recipe = searchResults[i];
+
+        if (matchesSelectedItems(recipe, selectedItems)) {
+            filteredRecipes.push(recipe);
+        }
+    }
+
     updateRecipeCount(filteredRecipes.length);
     displayRecipes(filteredRecipes);
 };
+
 
 /**
  * Update the recipe count display.
@@ -276,6 +330,12 @@ const populateSelects = () => {
     populateSelect('#ustensils-select', ustensils);
 };
 
+/**
+ * Add items to a set.
+ * @param {Array} items - The list of items.
+ * @param {Set} set - The set to populate.
+ * @param {string} [key] - The key to extract from each item.
+ */
 const addItemsToSet = (items, set, key) => {
     for (let i = 0; i < items.length; i++) {
         set.add(key ? items[i][key] : items[i]);
@@ -346,6 +406,12 @@ const updateSelectedItemsDisplay = () => {
     }
 };
 
+/**
+ * Create a list item element for a selected item.
+ * @param {string} type - The type of item (ingredients, appliances, ustensils).
+ * @param {string} item - The item value.
+ * @returns {HTMLElement} - The list item element.
+ */
 const createListItem = (type, item) => {
     const listItem = document.createElement('li');
     listItem.classList.add('flex', 'w-48', 'items-center', 'justify-between', 'rounded-lg', 'bg-color-site-50', 'p-4', 'text-sm');
