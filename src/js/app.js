@@ -89,7 +89,7 @@ const searchRecipesFunctional = (query, recipes) => {
  */
 const matchesQuery = (query, recipe) => {
     return recipe.name.toLowerCase().includes(query) ||
-        recipe.ingredients.map(ing => ing.ingredient.toLowerCase()).join(' ').includes(query) ||
+        recipe.ingredients.filter(ing => ing.toLowerCase()).includes(query) ||
         recipe.description.toLowerCase().includes(query);
 };
 
