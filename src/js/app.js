@@ -104,7 +104,7 @@ const matchesQuery = (query, recipe) => {
     }
 
     for (let i = 0; i < recipe.ingredients.length; i++) {
-        if (recipe.ingredients[i].ingredient.toLowerCase().includes(lowerCaseQuery)) {
+        if (recipe.ingredients[i].toLowerCase().includes(lowerCaseQuery)) {
             return true;
         }
     }
