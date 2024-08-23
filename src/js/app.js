@@ -15,7 +15,13 @@ const dropdownsData = [
     { id: 'ustensils', label: 'Ustensiles' }
 ];
 
-// Function to generate dropdown HTML structure
+/**
+ * Generate the HTML structure for a dropdown.
+ * @param {Object} param0 - The dropdown data.
+ * @param {string} param0.id - The ID of the dropdown.
+ * @param {string} param0.label - The label of the dropdown.
+ * @returns {string} - The HTML string for the dropdown.
+ */
 const generateDropdown = ({ id, label }) => {
     return `
         <div class="dropdown-container relative inline-block w-full pb-2 text-left lg:max-w-56 lg:pb-0">
@@ -46,7 +52,9 @@ const generateDropdown = ({ id, label }) => {
     `;
 };
 
-// Function to render dropdowns
+/**
+ * Render all dropdowns into the DOM.
+ */
 const renderDropdowns = () => {
     const dropdownsContainer = document.querySelector('#dropdowns-container');
     dropdownsData.forEach(data => {
@@ -89,7 +97,7 @@ const searchRecipesFunctional = (query, recipes) => {
  */
 const matchesQuery = (query, recipe) => {
     return recipe.name.toLowerCase().includes(query) ||
-        recipe.ingredients.filter(ing => ing.toLowerCase()).includes(query) ||
+        recipe.ingredients.map(ing => ing.ingredient.toLowerCase()).join(' ').includes(query) ||
         recipe.description.toLowerCase().includes(query);
 };
 
@@ -105,12 +113,25 @@ const matchesSelectedItems = (recipe, selectedItems) => {
         matchesAllItems(recipe.ustensils, selectedItems.ustensils);
 };
 
+/**
+ * Check if all selected items match the recipe items.
+ * @param {Array} recipeItems - The items in the recipe.
+ * @param {Set} selectedItems - The selected items.
+ * @param {string} [key] - The key to match on, if applicable.
+ * @returns {boolean} - True if all selected items match, false otherwise.
+ */
 const matchesAllItems = (recipeItems, selectedItems, key) => {
     return Array.from(selectedItems).every(item =>
         recipeItems.some(ing => (key ? ing[key] : ing).toLowerCase() === item.toLowerCase())
     );
 };
 
+/**
+ * Check if a single recipe item matches any of the selected items.
+ * @param {string} recipeItem - The item in the recipe.
+ * @param {Set} selectedItems - The selected items.
+ * @returns {boolean} - True if the item matches or there are no selected items, false otherwise.
+ */
 const matchesSingleItem = (recipeItem, selectedItems) => {
     return selectedItems.size === 0 || selectedItems.has(recipeItem.toLowerCase());
 };
@@ -156,6 +177,11 @@ const displayRecipes = recipes => {
     recipesContainer.innerHTML = recipes.map(recipe => createRecipeCard(recipe)).join('');
 };
 
+/**
+ * Create a recipe card element as an HTML string.
+ * @param {Object} recipe - The recipe object.
+ * @returns {string} - The HTML string for the recipe card.
+ */
 const createRecipeCard = recipe => `
     <article class="relative flex flex-col overflow-hidden rounded-3xl bg-white shadow-lg">
         <img src="src/assets/img/${recipe.image}" alt="${escapeHtml(recipe.name)}" class="h-64 w-full object-cover"/>
@@ -237,6 +263,12 @@ const populateSelects = () => {
     populateSelect('#ustensils-select', ustensils);
 };
 
+/**
+ * Add items to a set.
+ * @param {Set} set - The set to populate.
+ * @param {Array} items - The list of items.
+ * @param {string} [key] - The key to extract from each item.
+ */
 const addItemsToSet = (set, items, key) => {
     items.forEach(item => set.add(key ? item[key].toLowerCase() : item.toLowerCase()));
 };
